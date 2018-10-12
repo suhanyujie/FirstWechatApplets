@@ -3,5 +3,12 @@
 
 ## env
 * laravel 5.6
-* php7.2+
+* php 7.2+
+* 前端模板使用 [Laravel-admin](http://laravel-admin.org/docs)
+
+
+## 运行
+* 后台访问 `/admin`
+* 也可以使用 `php artisan route:list`，查看可以访问的路由
+
 
