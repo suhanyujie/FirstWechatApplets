@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers\Article;
 
-
 use App\Http\Controllers\BaseController;
 use App\Services\Article\ArticleService;
 use Illuminate\Http\Request;
@@ -25,9 +24,19 @@ class ArticleController extends BaseController
         $this->articleService = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        
+        $input   = $request->input();
+        $param   = [
+            'offset' => 0,
+            'limit'  => 100,
+        ];
+        $dataArr = $this->articleService->getList($param);
+        $output  = [
+            'articles' => $dataArr,
+        ];
+
+        return view('article.index', $output);
     }
 
     /**
@@ -38,14 +47,14 @@ class ArticleController extends BaseController
      */
     public function detail(Request $request, $id)
     {
-        $input = $request->input();
+        $input       = $request->input();
         $input['id'] = $id;
-        $result = $this->articleService->detail($input);
+        $result      = $this->articleService->detail($input);
         if ($result['status'] != 1) {
             abort(404);
         }
         $output = [
-            'article'=>$result['data'],
+            'article' => $result['data'],
         ];
 
         return view('article.detail', $output);

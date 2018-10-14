@@ -23,6 +23,30 @@ class ArticleController extends Controller
     use ModelForm;
 
     /**
+     * @var ArticleService
+     */
+    protected $articleService;
+
+    public function __construct(ArticleService $service)
+    {
+        $this->articleService = $service;
+    }
+
+    public function index(Request $request)
+    {
+        return Admin::Grid(ArticleArticleModel::class, function (Grid $grid) use ($request) {
+            $grid->id('ID')->sortable();
+            $grid->title('标题')->display(function ($title) use ($grid) {
+                return '<a href="/article/' . $this->id . '" target="_blank">' . $title . '</a>';
+            });
+            $grid->add_time();
+            $grid->update_time();
+
+            $grid->perPages([10, 30, 50]);
+        });
+    }
+
+    /**
      * 展示文章详情
      * @param Request $request
      * @return Content
@@ -53,7 +77,7 @@ class ArticleController extends Controller
                 $input['id'] = $id;
                 $result = $service->edit($input);
                 if ($result['status'] == 1) {
-                    return response()->redirectTo('/admin/article/edit/'.$id);
+                    return redirect('/admin/article/edit/'.$id);
                 }
                 return response()->json($result);
             }
@@ -76,7 +100,9 @@ class ArticleController extends Controller
             if ($request->isMethod('post')) {
                 $service = new ArticleService();
                 $result = $service->create($input);
-
+                if ($result['status'] == 1) {
+                    return response()->redirectTo('/admin/article/edit/'.$result['data']->id);
+                }
                 return response()->json($result);
             }
             $bodyString = $this->formRender();

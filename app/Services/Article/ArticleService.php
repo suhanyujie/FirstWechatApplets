@@ -13,6 +13,43 @@ use App\Services\BaseService;
 
 class ArticleService extends BaseService
 {
+    public function getList($paramArr=[])
+    {
+        $options = [
+            'title'   => '',
+            'content' => '',
+            'order'   => ['id' => 'desc'],
+            'fields'  => ['*'],
+            'isCount' => '',// 可选：1 是否只返回数据的数量
+            'debug'   => '',// 可选：1 调试，为true时，打印出sql语句
+            'offset'  => 0,// 可选 int mysql查询数据的偏移量
+            'limit'   => 1,// 可选 int mysql查询数据的条数限制
+        ];
+        $options = array_merge($options, $paramArr);
+        extract($options);
+        $model = new ArticleArticleModel();
+        if (!empty($options['id'])) {
+            $model = $model->where('id', $options['id']);
+        }
+        if (!empty($options['a_status'])) {
+            $model = $model->where('a_status', $options['a_status']);
+        }
+        //order
+        if (!empty($order)) {
+            foreach ($order as $orderField => $orderDir) {
+                $model = $model->orderby($orderField, $orderDir);
+            }
+        } else {
+            $model = $model->orderby('id', 'desc');
+        }
+        $model = $model->offset($offset)->limit($limit);
+        if (!empty($debug)) {
+            echo $model->toSql();exit();
+        }
+        $data = $model->get($fields);
+        return $data;
+    }
+
     /**
      * 创建新文章
      * @param array $paramArr
@@ -37,7 +74,7 @@ class ArticleService extends BaseService
             return ['status'=>300026, 'message'=>$e->getMessage()];
         }
         if ($result) {
-            return ['status'=>1,'message'=>'新增数据成功！'];
+            return ['status'=>1,'message'=>'新增数据成功！','data'=>$result];
         }else{
             return ['status'=>300029,'message'=>'新增数据失败！'];
         }
