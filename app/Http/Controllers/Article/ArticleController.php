@@ -35,6 +35,17 @@ class ArticleController extends BaseController
         $output  = [
             'articles' => $dataArr,
         ];
+        if ($request->isMethod('post')) {
+            $returnArr = [
+                'status'  => 1,
+                'message' => '获取数据成功！',
+                'data'    => $dataArr,
+            ];
+            return response()->json($returnArr);
+        }
+        if (isset($input['debug']) && $input['debug'] == 1) {
+            return view('article.indexVue', $output);
+        }
 
         return view('article.index', $output);
     }

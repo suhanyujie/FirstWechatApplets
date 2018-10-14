@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 // 文章区块的路由
 Route::group(['namespace'=>'Article'],function(){
-    Route::get('/article/index', 'ArticleController@index');
+    Route::any('/article/index', 'ArticleController@index');
     Route::get('/article/{id}', 'ArticleController@detail');
 });
 
