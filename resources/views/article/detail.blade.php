@@ -13,7 +13,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
+        <h2 style="margin:auto;">{{$article->title}}</h2>
+        <div class="content">
             {!! $article->content !!}
         </div>
 

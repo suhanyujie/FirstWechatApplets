@@ -52,6 +52,9 @@ class ArticleController extends Controller
                 $service = new ArticleService();
                 $input['id'] = $id;
                 $result = $service->edit($input);
+                if ($result['status'] == 1) {
+                    return response()->redirectTo('/admin/article/edit/'.$id);
+                }
                 return response()->json($result);
             }
             $bodyStr = $this->form('/admin/article/edit/'.$id)->edit($id);
