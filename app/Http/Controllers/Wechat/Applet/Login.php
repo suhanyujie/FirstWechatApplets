@@ -10,11 +10,13 @@ namespace App\Http\Controllers\Wechat\Applet;
 
 use App\Http\Controllers\Controller;
 use EasyWeChat\Factory;
+use Illuminate\Http\Request;
 
 class Login extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        return [ $request->input('code') ];
         $config = [
             'app_id' => 'wx958a25f9890f4fec',
             'secret' => '5f898e0f376baab3e5bb7a05f717c0cc',

@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// 文章区块的路由
+Route::group(['namespace'=>'Article'],function(){
+    Route::get('/article/{id}', 'ArticleController@detail');
+});
+
+

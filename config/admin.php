@@ -136,11 +136,11 @@ return [
     |LAYOUT OPTIONS | fixed                                   |
     |               | layout-boxed                            |
     |               | layout-top-nav                          |
-    |               | sidebar-collapse                        |
+    |               | sidebar-collapse                        |  'sidebar-collapse' 左侧菜单是否折叠
     |               | sidebar-mini                            |
     |---------------------------------------------------------|
      */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout' => ['sidebar-mini', ],//
 
     /*
      * Version displayed in footer.
