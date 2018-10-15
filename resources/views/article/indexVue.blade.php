@@ -6,9 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>羊绒大衣列表</title>
-    <script src="/vendor/iview/js/vue.min.js"></script>
-    <link rel="stylesheet" href="/vendor/iview/css/iview.css">
-    <script src="/vendor/iview/js/iview.min.js"></script>
+    <script src="/privateVendor/iview/js/vue.min.js"></script>
+    <link rel="stylesheet" href="/privateVendor/iview/css/iview.css">
+    <script src="/privateVendor/iview/js/iview.min.js"></script>
     <script src="/vendor/laravel-admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 </head>
 <body>
