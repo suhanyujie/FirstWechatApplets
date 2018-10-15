@@ -13,6 +13,11 @@ use App\Services\BaseService;
 
 class ArticleService extends BaseService
 {
+    /**
+     * @desc 获取列表
+     * @param array $paramArr
+     * @return mixed
+     */
     public function getList($paramArr=[])
     {
         $options = [
@@ -108,6 +113,26 @@ class ArticleService extends BaseService
         }else{
             return ['status'=>300029,'message'=>'编辑数据失败！'];
         }
+    }
+
+    public function matchImage($paramArr=[])
+    {
+        $options = [
+            'articles'=>[],
+        ];
+        $options = array_merge($options, $paramArr);
+        if (empty($options['articles']))return [];
+        $pattern = '@<img[^>]{0,}src\=\"(http://[^"]+)"[^>]+>@';
+        foreach ($options['articles'] as $k=>$article) {
+            preg_match($pattern, $article['content'],$matchResult);
+            if (!isset($matchResult['1'])) {
+                return ['status'=>200129,'message'=>'图片没有匹配到。请联系沈硕！'];
+            }
+            $imageSrc = $matchResult['1'];
+            $options['articles'][$k]['imageSrc'] = $imageSrc;
+            $options['articles'][$k]['articleLink'] = '/article/'.$article['id'];
+        }
+        return $options['articles'];
     }
 
     /**

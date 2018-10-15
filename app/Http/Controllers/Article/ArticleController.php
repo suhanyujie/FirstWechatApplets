@@ -31,11 +31,14 @@ class ArticleController extends BaseController
             'offset' => 0,
             'limit'  => 100,
         ];
-        $dataArr = $this->articleService->getList($param);
-        $output  = [
-            'articles' => $dataArr,
-        ];
+        $dataArr = [];
         if ($request->isMethod('post')) {
+            $dataArr = $this->articleService->getList($param);
+            $dataArr = $dataArr->toArray();
+            // 解析出每个文章中对应的图片
+            $dataArr = $this->articleService->matchImage([
+                'articles'=>$dataArr,
+            ]);
             $returnArr = [
                 'status'  => 1,
                 'message' => '获取数据成功！',
@@ -43,11 +46,11 @@ class ArticleController extends BaseController
             ];
             return response()->json($returnArr);
         }
-        if (isset($input['debug']) && $input['debug'] == 1) {
-            return view('article.indexVue', $output);
-        }
+        $output  = [
+            'articles' => $dataArr,
+        ];
 
-        return view('article.index', $output);
+        return view('article.indexVue', $output);
     }
 
     /**

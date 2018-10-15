@@ -5,28 +5,28 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>列表</title>
-    <script src="//vuejs.org/js/vue.min.js"></script>
-    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
-    <script src="//unpkg.com/iview/dist/iview.min.js"></script>
+    <title>羊绒大衣列表</title>
+    <script src="/vendor/iview/js/vue.min.js"></script>
+    <link rel="stylesheet" href="/vendor/iview/css/iview.css">
+    <script src="/vendor/iview/js/iview.min.js"></script>
     <script src="/vendor/laravel-admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 </head>
 <body>
 <div id="app">
-    <i-button @click="show">Click me!</i-button>
     <Col span="11">
         <Card style="width:320px" v-for="(item,index) in list">
             <div style="text-align:center">
-                <img src="http://suhanyu.qianbin.vip/static/upload/20181014/20181014093024-153950942427095bc30cb042252.jpg" width="200px">
+                <a :href="item.articleLink" target="_blank">
+                    <img :src="item.imageSrc" v-src="item.imageSrc" width="200px">
+                </a>
                 <h3 v-html="item.title"></h3>
             </div>
         </Card>
     </Col>
 
+    <BackTop></BackTop>
 </div>
-<div class="container">
 
-</div>
 <script>
     new Vue({
         el: '#app',
@@ -34,11 +34,15 @@
             visible: false,
             list:[
                 {
-                    title:'title1',
-                    content:'content1111'
+                    title:'加载中，请稍候...',
+                    content:''
                 }
             ],
             rToken:'{{csrf_token()}}',
+        },
+        created:function(){
+            var _this = this;
+            _this.getData()
         },
         methods: {
             getData () {
@@ -47,7 +51,6 @@
                 var paramData = {
                     _token:_this.rToken
                 };
-                console.log(_this.rToken)
                 $.ajax({
                     url: '/article/index',
                     type: 'post',
