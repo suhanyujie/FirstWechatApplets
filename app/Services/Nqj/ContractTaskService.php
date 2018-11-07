@@ -28,6 +28,7 @@ class ContractTaskService extends BaseService
             }
             $this->writeLog($res);
         }
+        return ['status'=>1,'msg'=>"任务跑完。\n"];
     }
 
     /**
@@ -46,7 +47,7 @@ class ContractTaskService extends BaseService
      */
     public function writeLog($logData=[])
     {
-
+        //可以记录到表中，最好有字段 id,app,key,event,content,create_time,update_time
     }
 
     /**

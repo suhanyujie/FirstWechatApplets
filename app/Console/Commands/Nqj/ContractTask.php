@@ -4,6 +4,8 @@ namespace App\Console\Commands\Nqj;
 
 use Illuminate\Console\Command;
 use App\Services\Nqj\ContractTaskService;
+use Workerman\Worker;
+use Workerman\Lib\Timer;
 
 class ContractTask extends Command
 {
@@ -45,6 +47,37 @@ class ContractTask extends Command
     public function handle()
     {
         $result = $this->service->taskConsume();
+        $logstr = date('Y-m-d H:i:s')." --> ".json_encode($result,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE).PHP_EOL;
+        $logFile = storage_path('logs/nqjContractLog.log');
+        if (!file_exists($logFile)) {
+            touch($logFile);
+            chmod($logFile,0777);
+        }
+        file_put_contents($logFile,$logstr,FILE_APPEND);
         var_dump($result);
+    }
+
+    public function setTimer()
+    {
+        $task = new Worker();
+        $task->onWorkerStart = function($task)
+        {
+            // 2.5 seconds
+            $time_interval = 2.5;
+            $timer_id = Timer::add($time_interval, function () {
+                echo "Timer run\n";
+                $result = $this->service->taskConsume();
+                $logstr = date('Y-m-d H:i:s')."-->".json_encode($result,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE).PHP_EOL;
+                $logFile = storage_path('logs/nqjContractLog.log');
+                if (!file_exists($logFile)) {
+                    touch($logFile);
+                    chmod($logFile,0777);
+                }
+                file_put_contents($logFile,$logstr,FILE_APPEND);
+                var_dump($result);
+            });
+        };
+        // run all workers
+        Worker::runAll();
     }
 }
