@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Wechat\Gzh;
 
 use App\Http\Controllers\BaseController;
 use EasyWeChat\Factory;
+use EasyWeChat\Kernel\Messages\Text;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class GzhController extends BaseController
@@ -17,24 +19,28 @@ class GzhController extends BaseController
     /**
      * @desc
      */
-    public function index()
+    public function index(Request $request)
     {
+        $openId = $request->input('openid');
         $config = config('wechat.gzh');
         try{
             $app = Factory::officialAccount($config);
             $user = $app->user;
-            $app->server->push(function ($msg)use($user) {
-                $fromUser = $user->get($msg['FromUserName']);
-                $msgJson = json_encode([$user,$msg], true);
-                Log::useFiles(storage_path().'/logs/laravel.log')->info("用户注册原始数据:{$msgJson}");
-                switch ($msg) {
-                    default:
-                        return "你好，{$fromUser}，我已经收到消息\n";
-                }
+            file_put_contents(storage_path('logs/wechat1.log'),"$openId");
+
+            $app->server->push(function ($msg) use ($user) {
+                return "您好！欢迎关注我!";
+//                $fromUser = $user->get($msg['FromUserName']);
+//                $msgJson  = json_encode([$user, $msg], true);
+//                Log::useFiles(storage_path() . '/logs/laravel.log')->info("用户注册原始数据:{$msgJson}");
+//                switch ($msg) {
+//                    default:
+//                        return "你好，{$fromUser}，我已经收到消息\n";
+//                }
             });
-            $accessToken = $app->access_token;
-            $token = $accessToken->getToken();
             $response = $app->server->serve();
+//            $message = new Text('hello world!');
+//            $app->customer_service->message($message)->to($openId)->send();
             $response->send();
         }catch (\Exception $e) {
             return [

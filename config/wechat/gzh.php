@@ -12,7 +12,7 @@
 
 return [
     'app_id'        => 'wx42999873a1dbdfc2',
-    'secret'        => 'uta3RavVyrCwa5WIpSI2FFwh5f6m9vchAEQPC2ibD2e',
+    'secret'        => 'b574LG7PlbY1ljovlhKx327toTiJSxBI4d3sLNo3uZ3',
     'token'         => 'weixin',
     'response_type' => 'array',
 
