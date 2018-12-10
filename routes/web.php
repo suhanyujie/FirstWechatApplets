@@ -22,3 +22,8 @@ Route::group(['namespace'=>'Article'],function(){
 });
 
 
+//公众号区块
+Route::group(['namespace' => 'Wechat\Gzh'], function () {
+    Route::any('/gzh/index', 'GzhController@index');
+});
+
