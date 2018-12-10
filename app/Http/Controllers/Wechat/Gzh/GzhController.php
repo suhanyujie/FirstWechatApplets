@@ -26,7 +26,7 @@ class GzhController extends BaseController
         try{
             $app = Factory::officialAccount($config);
             $user = $app->user;
-            file_put_contents(storage_path('logs/wechat1.log'),"$openId");
+            file_put_contents(storage_path('logs/wechat1.log'),"$openId\n");
 
             $app->server->push(function ($msg) use ($user) {
                 return "您好！欢迎关注我!";
