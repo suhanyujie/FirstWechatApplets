@@ -8,34 +8,30 @@
 
 namespace App\Http\Controllers\Wechat\Gzh;
 
-
 use App\Http\Controllers\BaseController;
 use EasyWeChat\Factory;
+use Illuminate\Support\Facades\Log;
 
 class GzhController extends BaseController
 {
-
     /**
      * @desc
      */
     public function index()
     {
-        $config = [
-            'app_id'        => 'wx42999873a1dbdfc2',
-            'secret'        => 'uta3RavVyrCwa5WIpSI2FFwh5f6m9vchAEQPC2ibD2e',
-            'token'         => 'weixin',
-            //...
-        ];
+        $config = config('wechat.gzh');
         $app = Factory::officialAccount($config);
         $app->server->push(function ($msg) {
+            $msgJson = json_encode($msg, true);
+            Log::useFiles(storage_path().'/logs/laravel.log')->info("用户注册原始数据:{$msgJson}");
             switch ($msg) {
                 default:
                     return "收到消息\n";
             }
         });
         $response = $app->server->serve();
+        $response->send();
 
-
-        return $response->send();
+        return $response;
     }
 }
