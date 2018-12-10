@@ -11,4 +11,7 @@
 * 后台访问 `/admin`，登录后台的用户名和密码都是 `admin`
 * 也可以使用 `php artisan route:list`，查看可以访问的路由
 
+## 微信公众号
+* 查看流程 http://lanewechat.lanecn.com/doc/main/aid-7
+
 
