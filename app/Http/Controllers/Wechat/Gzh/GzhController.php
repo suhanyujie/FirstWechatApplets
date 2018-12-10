@@ -46,7 +46,6 @@ class GzhController extends BaseController
         return $response;
     }
 
-
     /**
      * @desc
      */
