@@ -13,5 +13,6 @@
 
 ## 微信公众号
 * 查看流程 http://lanewechat.lanecn.com/doc/main/aid-7
+* 公众号的开发文档 https://www.easywechat.com/docs/master/overview
 
 
