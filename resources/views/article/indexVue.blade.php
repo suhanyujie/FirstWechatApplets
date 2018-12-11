@@ -9,7 +9,7 @@
     <script src="/privateVendor/iview/styles/js/vue.min.js"></script>
     <link rel="stylesheet" href="/privateVendor/iview/styles/iview.css">
     <script src="/privateVendor/iview/styles/js/iview.min.js"></script>
-    <script src="/vendor/laravel-admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- <script src="/vendor/laravel-admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
 </head>
 <body>
 <div id="app">
