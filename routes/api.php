@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 */
 Route::middleware([])->group(function () {
     Route::post('/file', 'Common\FileUploadController@upload');
-
-
 });
 
 
@@ -25,7 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware([])->group(function () {
     Route::get('/applet1/list', 'Wechat\Applet\Login@index');
-
-
+    Route::get('/applet1/test', 'Wechat\Applet\Login@test');
 });
 
