@@ -16,7 +16,7 @@ class Login extends Controller
 {
     public function index(Request $request)
     {
-        return [ $request->input('code') ];
+        // return [ $request->input('code') ];
         $config = [
             'app_id' => env('WECHAT_APP_ID',''),
             'secret' => env('WECHAT_SECRET',''),
@@ -30,7 +30,8 @@ class Login extends Controller
         ];
         $app = Factory::miniProgram($config);
         $res = $app->getConfig();
-        return $res;
+
+        return ['test'];
     }
 
     public function test()

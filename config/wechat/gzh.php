@@ -11,8 +11,8 @@
  */
 
 return [
-    'app_id'        => 'wx42999873a1dbdfc2',
-    'secret'        => 'b574LG7PlbY1ljovlhKx327toTiJSxBI4d3sLNo3uZ3',
+    'app_id'        => env('WECHAT_GZH_APPID','xxxxxxxxx'),
+    'secret'        => env('WECHAT_GZH_SECRET','xxxxxxxxx'),
     'token'         => 'weixin',
     'response_type' => 'array',
 
