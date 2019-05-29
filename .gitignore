@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 .env
 /public/static
+
+config/wechat/gzh.php
