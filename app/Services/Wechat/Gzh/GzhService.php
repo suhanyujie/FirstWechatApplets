@@ -8,6 +8,7 @@
 
 namespace App\Services\Wechat\Gzh;
 
+use App\Services\Wechat\Gzh\Services\WeatherService;
 use EasyWeChat\Factory;
 use App\Services\BaseService;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,7 @@ class GzhService extends BaseService
 {
     /**
      * @desc 回复粉丝消息
+     * @routes
      * @return Response
      */
     public function index()
@@ -33,7 +35,7 @@ class GzhService extends BaseService
                 return $this->replyByUserContent($msg['Content']);
             });
             $response = $app->server->serve();
-            $response->send();
+            return $response->send();
         }catch (\Exception $e) {
             $response = [
                 'status'=>$e->getCode(),
@@ -52,10 +54,17 @@ class GzhService extends BaseService
     {
         switch ($userContent) {
             case 0:
-                return (new TextMenu)->showTextMenu();
+                $content = (new TextMenu)->showTextMenu();
+                break;
+            case 1:// 获取天气
+                $service = new WeatherService();
+                $service->getContent();
+                $content = $service->render();
                 break;
             default:
-                return "你好，我已经收到消息...{$userContent}\n";
+                $content = "你好，我已经收到消息...{$userContent}\n";
         }
+
+        return $content;
     }
 }
