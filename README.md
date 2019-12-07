@@ -14,9 +14,9 @@
 * `php artisan key:generate`
 * laravel admin 相关 `php artisan admin:install`
 * 下载编辑器相关的静态资源:
-      - `wget https://github.com/wangfupeng1988/wangEditor/archive/v3.1.1.zip`，也可以下载最新的发布版本
-      - `unzip v3.1.1.zip -d ./public/vendor/`
-      - `mv public/vendor/wangEditor-3.1.1 public/vendor/wangEditor-3.0.9`
+    - `wget https://github.com/wangfupeng1988/wangEditor/archive/v3.1.1.zip`，也可以下载最新的发布版本
+    - `unzip v3.1.1.zip -d ./public/vendor/`
+    - `mv public/vendor/wangEditor-3.1.1 public/vendor/wangEditor-3.0.9`
 
 ## 微信公众号
 * 查看流程 http://lanewechat.lanecn.com/doc/main/aid-7
