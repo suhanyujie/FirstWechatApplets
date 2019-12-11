@@ -32,6 +32,10 @@ class GzhService extends BaseService
                 //$fromUser = $user->get($msg['FromUserName']);
                 $msgJson  = json_encode([$user, $msg], true);
                 Log::info("原始数据:{$msgJson}。");
+                // 处理事件，如关注、取关等
+                if (strtolower($msg['MsgType']) === 'event') {
+                    return $this->handleEvent($msg['Event']);
+                }
                 return $this->replyByUserContent($msg['Content']);
             });
             $response = $app->server->serve();
@@ -66,5 +70,21 @@ class GzhService extends BaseService
         }
 
         return $content;
+    }
+
+    /**
+     * @desc 处理用户的事件
+     */
+    public function handleEvent($event='')
+    {
+        $string = '';
+        switch ($event) {
+            case 'subscribe':// 新用户关注
+                $string = '客观您好，请往这边坐~';
+                break;
+            default:
+        }
+
+        return $string;
     }
 }
