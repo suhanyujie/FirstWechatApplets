@@ -4,7 +4,7 @@ services:
     image: "nginx:latest"
     container_name: "nginx1"
     ports:
-      - 8008:80
+      - 80:80
     volumes:
       - ./conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - ../../FirstWechatApplets:/var/www/html/FirstWechatApplets/
@@ -26,9 +26,10 @@ services:
   php_mysql1:
     container_name: "php_mysql1"
     image: "mysql:5.7"
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
       - ./data:/var/lib/mysql
     
-  
