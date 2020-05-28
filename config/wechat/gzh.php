@@ -13,7 +13,7 @@
 return [
     'app_id'        => env('WECHAT_GZH_APPID','xxxxxxxxx'),
     'secret'        => env('WECHAT_GZH_SECRET','xxxxxxxxx'),
-    'token'         => 'weixin',
+    'token'         => env('WECHAT_GZH_TOKEN','weixin'),
     'response_type' => 'array',
 
     /**
