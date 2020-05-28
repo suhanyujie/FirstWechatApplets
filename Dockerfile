@@ -1,4 +1,4 @@
-FROM circleci/php:latest
+FROM circleci/php:7.3.16-fpm-node
 
 RUN cd /home/circleci \
     && git clone https://github.com/suhanyujie/FirstWechatApplets.git \

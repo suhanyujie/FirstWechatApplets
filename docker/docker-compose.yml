@@ -1,0 +1,26 @@
+version: "3"
+services:
+  nginx1:
+    image: "nginx:latest"
+    container_name: "nginx1"
+    ports:
+      - 8008:80
+    volumes:
+      - ./conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ../../FirstWechatApplets:/var/www/html/FirstWechatApplets/
+    depends_on:
+      - php_app1
+    links:
+      - php_app1
+  php_app1:
+    build: "../"
+    container_name: "php_app1"
+    ports:
+      - 9001:9001
+    volumes:
+      - ../../FirstWechatApplets:/var/www/html/FirstWechatApplets/
+    entrypoint: ["php-fpm"]
+    environment:
+      APP_ENV: test
+    
+  
