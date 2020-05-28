@@ -10,6 +10,7 @@ services:
       - ../../FirstWechatApplets:/var/www/html/FirstWechatApplets/
     depends_on:
       - php_app1
+      - php_mysql1
     links:
       - php_app1
   php_app1:
@@ -22,5 +23,12 @@ services:
     entrypoint: ["php-fpm"]
     environment:
       APP_ENV: test
+  php_mysql1:
+    container_name: "php_mysql1"
+    image: "mysql:5.7"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - ./data:/var/lib/mysql
     
   
