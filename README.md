@@ -18,6 +18,9 @@
     - `unzip v3.1.1.zip -d ./public/vendor/`
     - `mv public/vendor/wangEditor-3.1.1 public/vendor/wangEditor-3.0.9`
 
+## docker
+* 参考 [docker 目录](docker)，使用 `docker-compose up --build` 即可启动相关容器
+
 ## 微信公众号
 * 查看流程 http://lanewechat.lanecn.com/doc/main/aid-7
 * 公众号的开发文档 https://www.easywechat.com/docs/master/overview
