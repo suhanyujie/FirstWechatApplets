@@ -48,6 +48,7 @@ class TestMysql extends Command
     public function connect()
     {
         $model = new TestArticleModel();
-        var_dump($model);die;
+        $list = $model->where([])->offset(0)->limit(10)->get();
+        var_dump($list);die;
     }
 }
